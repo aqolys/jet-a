@@ -1,5 +1,5 @@
 <template>
-  <button>
+  <button class="button" :class="{ 'button-icon': icon, 'button-text': text }">
     <fa :icon="icon" v-if="icon" />
     {{ text }}
   </button>
@@ -12,13 +12,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-button {
+@import "@/scss/colors.scss";
+
+.button {
   cursor: pointer;
   background: unset;
   border: unset;
   outline: unset;
   color: white;
-  padding: 10px;
-  font-size: 20px;
+
+  &-icon {
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  &-text {
+    background: $blue;
+  }
 }
 </style>

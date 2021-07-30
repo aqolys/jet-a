@@ -1,5 +1,9 @@
 <template>
-  <div class="chat">
+  <div
+    class="chat"
+    :class="{ 'chat--active': activeChat === value.id }"
+    @click="onSelectChat(value)"
+  >
     <div class="chat__avatar">
       <img :src="value.avatar" :alt="value.name" />
     </div>
@@ -11,12 +15,22 @@
 
 <script>
 import moment from "moment";
+import { mapState } from "vuex";
 
 export default {
   props: ["value"],
+  computed: {
+    ...mapState({
+      activeChat: "activeChat",
+    }),
+  },
   methods: {
     parseDate(at) {
       return moment(at).format("HH:mm");
+    },
+    onSelectChat(value) {
+      console.log(value.id);
+      this.$store.commit("SELECT_CHAT", value.id);
     },
   },
 };
@@ -24,6 +38,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/scss/sizes.scss";
+@import "@/scss/colors.scss";
 
 .chat {
   height: fit-content;
@@ -71,6 +86,10 @@ export default {
   &__date {
     grid-area: date;
     align-self: end;
+  }
+
+  &--active {
+    background: $blue !important;
   }
 }
 </style>
