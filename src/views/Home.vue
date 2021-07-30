@@ -11,8 +11,12 @@
       </div>
     </div>
     <div class="chats-dialogue">
-      <div class="chats-dialogue__header"></div>
-      <div class="chats-dialogue__container"></div>
+      <div class="chats-dialogue__header">
+        <DialogueHeader />
+      </div>
+      <div class="chats-dialogue__container">
+        <Dialogue />
+      </div>
       <div class="chats-dialogue__input"></div>
     </div>
   </div>
@@ -21,12 +25,16 @@
 <script>
 import Chat from "@/components/chats/Chat.vue";
 import ChatHeader from "@/components/chats/Header.vue";
+import Dialogue from "@/components/dialogue/Dialogue.vue";
+import DialogueHeader from "@/components/dialogue/Header.vue";
 import chatsData from "@/components/chats/data.js";
 
 export default {
   components: {
     Chat,
     ChatHeader,
+    Dialogue,
+    DialogueHeader,
   },
   data: () => {
     return { chatsData };
@@ -44,16 +52,17 @@ export default {
   &-list {
     height: 100vh;
     background: rgba(0, 0, 0, 0.4);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: $header-height 1fr;
 
     &__header {
-      height: $header-height;
       background: rgba(0, 0, 0, 0.6);
       display: flex;
       align-items: center;
     }
 
     &__wrapper {
-      height: calc(100% - 4.5rem);
       overflow-y: auto;
     }
 
@@ -62,6 +71,16 @@ export default {
   }
 
   &-dialogue {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: $header-height 1fr;
+
+    &__header {
+      height: $header-height;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+    }
   }
 }
 </style>
