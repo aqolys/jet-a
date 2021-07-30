@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faSearch, faCog)
 
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('fa', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
