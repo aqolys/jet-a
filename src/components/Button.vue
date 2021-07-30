@@ -1,5 +1,8 @@
 <template>
-  <button></button>
+  <button>
+    <fa :icon="icon" v-if="icon" />
+    {{ text }}
+  </button>
 </template>
 
 <script>

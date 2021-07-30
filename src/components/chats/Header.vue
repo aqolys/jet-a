@@ -10,8 +10,8 @@
       <div class="header-user__name">Danil Danilenko</div>
     </div>
     <div class="header-actions">
-      <Button><font-awesome-icon icon="search" /></Button>
-      <Button><font-awesome-icon icon="cog" /></Button>
+      <Button icon="search" />
+      <Button icon="cog" />
     </div>
   </div>
 </template>
