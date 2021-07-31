@@ -3,7 +3,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        this.$store.commit("SELECT_CHAT", null);
+      }
+    });
+  },
+};
 </script>
 
 <style lang="scss" scoped>
