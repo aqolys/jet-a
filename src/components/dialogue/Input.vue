@@ -40,6 +40,7 @@ export default {
   },
   watch: {
     activeChat() {
+      this.$refs.input.focus();
       this.$refs.input.innerText = "";
       this.placeholderVisibility = true;
     },
