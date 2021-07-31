@@ -37,15 +37,27 @@ export default {
     activeChat() {
       return this.$store.state.activeChat;
     },
+    storedDraft() {
+      return this.$store.state.drafts[this.activeChat?.id];
+    },
   },
   watch: {
-    activeChat() {
+    activeChat(_, prev) {
       this.$refs.input.focus();
-      this.$refs.input.innerText = "";
-      this.placeholderVisibility = true;
+
+      this.$store.commit("UPDATE_DRAFT", {
+        chat: prev.id,
+        draft: this.$refs.input.innerText,
+      });
+
+      this.clearInput();
     },
   },
   methods: {
+    clearInput() {
+      this.$refs.input.innerText = this.storedDraft || "";
+      this.placeholderVisibility = !this.storedDraft;
+    },
     onInput() {
       this.placeholderVisibility = !this.$refs.input.innerText;
     },

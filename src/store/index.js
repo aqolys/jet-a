@@ -5,12 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    activeChat: null
+    activeChat: null,
+    drafts: {}
   },
 
   mutations: {
-    SELECT_CHAT: (state, payload) => {
-      state.activeChat = payload
+    SELECT_CHAT(state, chat) {
+      state.activeChat = chat
+    },
+    UPDATE_DRAFT(state, { chat, draft }) {
+      state.drafts[chat] = draft
     }
   },
 
