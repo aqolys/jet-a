@@ -11,7 +11,7 @@
         class="input__textarea"
         contenteditable="true"
         ref="input"
-        @input="onWrite()"
+        @input="onInput()"
       ></div>
     </div>
     <div class="input__send">
@@ -33,6 +33,9 @@ export default {
     };
   },
   computed: {
+    input() {
+      return this.$refs.input.innerText;
+    },
     activeChat() {
       return this.$store.state.activeChat;
     },
@@ -44,25 +47,11 @@ export default {
     },
   },
   methods: {
-    onWrite() {
-      let input = this.$refs.input;
-      let text = input.innerText;
-
-      if (text) {
-        this.placeholderVisibility = false;
-      } else {
-        this.placeholderVisibility = true;
-      }
+    onInput() {
+      this.placeholderVisibility = !this.$refs.input.innerText;
     },
   },
-  mounted() {
-    // this.$store.subscribe((mutation, state) => {
-    // if (mutation.type === "SELECT_CHAT") {
-    // this.$refs.input.innerText = "";
-    // this.placeholderVisibility = true;
-    // }
-    // });
-  },
+  mounted() {},
 };
 </script>
 
