@@ -1,7 +1,7 @@
 <template>
   <div
     class="chat"
-    :class="{ 'chat--active': activeChat === value.id }"
+    :class="{ 'chat--active': activeChat && activeChat.id === value.id }"
     @click="onSelectChat(value)"
   >
     <div class="chat__avatar">
@@ -30,8 +30,7 @@ export default {
       return moment(at).format("HH:mm");
     },
     onSelectChat(value) {
-      console.log(value.id);
-      this.$store.commit("SELECT_CHAT", value.id);
+      this.$store.commit("SELECT_CHAT", value);
     },
   },
 };

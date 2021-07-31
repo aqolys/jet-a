@@ -2,22 +2,24 @@
   <div class="header">
     <div class="header-user">
       <div class="header-user__avatar">
-        <img
-          src="https://anfisabreus.ru/wp-content/plugins/instagram-widget-by-wpzoom/assets/backend/img/user-avatar.jpg"
-          alt=""
-        />
+        <img :src="user.avatar" alt="" />
+        <span class="header-user__status" v-show="user.online"></span>
       </div>
-      <div class="header-user__name">Danil Danilenko</div>
+      <div class="header-user__name">{{ user.name }}</div>
     </div>
     <div class="header-actions"></div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["user"],
+};
 </script>
 
 <style lang="scss" scoped>
+@import "@/scss/colors.scss";
+
 .header {
   padding: 0 7px 0 7px;
   display: flex;
@@ -26,12 +28,13 @@ export default {};
 
   &-user {
     display: grid;
-    grid-template-columns: 2.7rem 1fr;
+    grid-template-columns: 2.7rem 1fr 1fr;
     column-gap: 1rem;
 
     &__avatar {
       display: flex;
       align-items: center;
+      position: relative;
 
       img {
         width: 100%;
@@ -43,6 +46,18 @@ export default {};
       display: flex;
       align-items: center;
       font-weight: 500;
+    }
+
+    &__status {
+      background: #fff;
+      width: 12px;
+      height: 12px;
+      border-radius: 100%;
+      border: 2px solid $blue;
+      align-self: center;
+      position: absolute;
+      bottom: 0;
+      right: 0;
     }
   }
 }

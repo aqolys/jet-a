@@ -10,9 +10,9 @@
         </div>
       </div>
     </div>
-    <div class="chats-dialogue">
+    <div class="chats-dialogue" v-if="activeChat">
       <div class="chats-dialogue__header">
-        <DialogueHeader />
+        <DialogueHeader :user="activeChat" />
       </div>
       <div class="chats-dialogue__container">
         <Dialogue />
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import Chat from "@/components/chats/Chat.vue";
 import ChatHeader from "@/components/chats/Header.vue";
 import Dialogue from "@/components/dialogue/Dialogue.vue";
@@ -38,6 +40,11 @@ export default {
   },
   data: () => {
     return { chatsData };
+  },
+  computed: {
+    ...mapState({
+      activeChat: "activeChat",
+    }),
   },
 };
 </script>
