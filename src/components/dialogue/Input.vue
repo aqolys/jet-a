@@ -32,6 +32,17 @@ export default {
       placeholderVisibility: true,
     };
   },
+  computed: {
+    activeChat() {
+      return this.$store.state.activeChat;
+    },
+  },
+  watch: {
+    activeChat() {
+      this.$refs.input.innerText = "";
+      this.placeholderVisibility = true;
+    },
+  },
   methods: {
     onWrite() {
       let input = this.$refs.input;
@@ -45,12 +56,12 @@ export default {
     },
   },
   mounted() {
-    this.$store.subscribe((mutation, state) => {
-      if (mutation.type === "SELECT_CHAT") {
-        this.$refs.input.innerText = "";
-        this.placeholderVisibility = true;
-      }
-    });
+    // this.$store.subscribe((mutation, state) => {
+    // if (mutation.type === "SELECT_CHAT") {
+    // this.$refs.input.innerText = "";
+    // this.placeholderVisibility = true;
+    // }
+    // });
   },
 };
 </script>
