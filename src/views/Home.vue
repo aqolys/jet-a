@@ -17,7 +17,9 @@
       <div class="chats-dialogue__container">
         <Dialogue />
       </div>
-      <div class="chats-dialogue__input"></div>
+      <div class="chats-dialogue__input">
+        <DialogueInput />
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +31,7 @@ import Chat from "@/components/chats/Chat.vue";
 import ChatHeader from "@/components/chats/Header.vue";
 import Dialogue from "@/components/dialogue/Dialogue.vue";
 import DialogueHeader from "@/components/dialogue/Header.vue";
+import DialogueInput from "@/components/dialogue/Input.vue";
 import chatsData from "@/components/chats/data.js";
 
 export default {
@@ -37,6 +40,7 @@ export default {
     ChatHeader,
     Dialogue,
     DialogueHeader,
+    DialogueInput,
   },
   data: () => {
     return { chatsData };
@@ -81,6 +85,7 @@ export default {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: $header-height 1fr;
+    background: rgba(0, 0, 0, 0.2);
 
     &__header {
       height: $header-height;

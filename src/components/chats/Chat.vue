@@ -30,7 +30,9 @@ export default {
       return moment(at).format("HH:mm");
     },
     onSelectChat(value) {
-      this.$store.commit("SELECT_CHAT", value);
+      if (!(this.activeChat && this.activeChat.id === value.id)) {
+        this.$store.commit("SELECT_CHAT", value);
+      }
     },
   },
 };
@@ -92,7 +94,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #dbdbdb;
+    color: $text-muted;
   }
 
   &__date {

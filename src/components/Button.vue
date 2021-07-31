@@ -20,6 +20,7 @@ export default {
   border: unset;
   outline: unset;
   color: white;
+  border-radius: 100%;
 
   &-icon {
     padding: 10px;
@@ -28,6 +29,12 @@ export default {
 
   &-text {
     background: $blue;
+  }
+
+  &-dialogue {
+    font-size: 30px;
+    min-height: 50px;
+    min-width: 50px;
   }
 }
 </style>
