@@ -6,6 +6,7 @@
   >
     <div class="chat__avatar">
       <img :src="value.avatar" :alt="value.name" />
+      <span class="chat__status" v-show="value.online"></span>
     </div>
     <div class="chat__name">{{ value.name }}</div>
     <div class="chat__preview">{{ value.preview }}</div>
@@ -62,11 +63,23 @@ export default {
     overflow: hidden;
     display: flex;
     align-items: center;
+    position: relative;
 
     img {
       width: 100%;
       border-radius: 100%;
     }
+  }
+
+  &__status {
+    background: #fff;
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    right: 2px;
+    border: 2px solid $blue;
+    bottom: 10px;
+    position: absolute;
   }
 
   &__name {

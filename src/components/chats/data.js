@@ -53,6 +53,7 @@ export default [
     avatar:
       'https://images.unsplash.com/photo-1514846117827-513efb7aa48a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
     unread: false,
+    online: true
   },
   {
     id: 'as9o0dkaso0d',
