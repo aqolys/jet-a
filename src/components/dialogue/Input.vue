@@ -27,11 +27,9 @@ export default {
   components: {
     Button,
   },
-  data: () => {
-    return {
-      placeholderVisibility: true,
-    };
-  },
+  data: () => ({
+    placeholderVisibility: true,
+  }),
   computed: {
     input() {
       return this.$refs.input.innerText;
