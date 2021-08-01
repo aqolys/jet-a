@@ -82,16 +82,21 @@ export default {
   }
 
   &-dialogue {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: $header-height 1fr;
+    display: flex;
+    flex-direction: column;
+    position: relative;
     background: rgba(0, 0, 0, 0.2);
+    min-width: $dialogue-width;
 
     &__header {
       height: $header-height;
       background: rgba(0, 0, 0, 0.6);
       display: flex;
       align-items: center;
+    }
+
+    &__container {
+      flex: 1;
     }
   }
 }

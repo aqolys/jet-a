@@ -71,7 +71,7 @@ export default {
 
 .input {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 50px calc(100% - 100px) 50px;
   align-items: center;
   padding: 0 7px 5px 7px;
   max-width: 100%;
