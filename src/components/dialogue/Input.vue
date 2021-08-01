@@ -11,7 +11,8 @@
         class="input__textarea"
         contenteditable="true"
         ref="input"
-        @input="onInput()"
+        @input="onInput"
+        @keydown.enter="onEnter"
       ></div>
     </div>
     <div class="input__send">
@@ -60,6 +61,11 @@ export default {
     },
     onInput() {
       this.placeholderVisibility = !this.$refs.input.innerText;
+    },
+    onEnter(e) {
+      if (!this.$refs.input.innerText) {
+        e.preventDefault();
+      }
     },
   },
   mounted() {},
