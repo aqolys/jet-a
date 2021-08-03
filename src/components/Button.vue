@@ -25,6 +25,9 @@ export default {
   &-icon {
     padding: 10px;
     font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &-text {
@@ -32,9 +35,17 @@ export default {
   }
 
   &-dialogue {
-    font-size: 30px;
-    min-height: 50px;
-    min-width: 50px;
+    font-size: 25px;
+    height: 45px;
+    width: 45px;
+    background: $blue;
+    align-self: center;
+  }
+
+  &-send {
+    svg {
+      margin-right: 4px;
+    }
   }
 }
 </style>

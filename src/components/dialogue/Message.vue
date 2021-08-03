@@ -38,6 +38,7 @@ export default {
 .message {
   padding: 10px;
   background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
   align-self: flex-start;
   margin: 10px 25px 10px 25px;
   border-radius: 10px 10px 10px 0;
@@ -58,6 +59,23 @@ export default {
     }
   }
 
+  &:hover &__date {
+    opacity: 1;
+    bottom: 2px;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    bottom: 0;
+    width: 15px;
+    height: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%);
+  }
+
   &--im {
     align-self: flex-end;
     border-radius: 10px 10px 0 10px;
@@ -67,11 +85,13 @@ export default {
       left: -40px;
       text-align: right;
     }
-  }
 
-  &:hover &__date {
-    opacity: 1;
-    bottom: 2px;
+    &::before {
+      left: unset;
+      right: -15px;
+      clip-path: polygon(0 0, 50% 50%, 100% 100%, 0 100%);
+      background: $blue;
+    }
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="input">
-    <div class="input__media">
+    <div class="input__button input__media">
       <Button icon="plus" class="button-dialogue" />
     </div>
     <div class="input__textarea-container">
@@ -15,8 +15,8 @@
         @keydown.enter="onEnter"
       ></div>
     </div>
-    <div class="input__send">
-      <Button icon="paper-plane" class="button-dialogue" />
+    <div class="input__button input__send">
+      <Button icon="paper-plane" class="button-dialogue button-send" />
     </div>
   </div>
 </template>
@@ -77,9 +77,10 @@ export default {
 
 .input {
   display: grid;
-  grid-template-columns: 50px calc(100% - 100px) 50px;
+  grid-template-columns: 50px calc(100% - 116px) 50px;
   align-items: center;
-  padding: 0 7px 5px 7px;
+  column-gap: 8px;
+  padding: 0 8px 5px 8px;
   max-width: 100%;
 
   &__textarea {
@@ -109,6 +110,11 @@ export default {
     top: 7px;
     color: $text-muted;
     pointer-events: none;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

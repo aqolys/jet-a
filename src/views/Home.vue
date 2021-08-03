@@ -63,6 +63,7 @@ export default {
   &-list {
     height: 100vh;
     background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: $header-height 1fr;
@@ -87,6 +88,7 @@ export default {
     position: relative;
     background: rgba(0, 0, 0, 0.2);
     min-width: $dialogue-width;
+    // backdrop-filter: blur(1px);
 
     &__header {
       height: $header-height;

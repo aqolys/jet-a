@@ -54,5 +54,9 @@ export default {
       font-weight: 500;
     }
   }
+
+  &-actions {
+    display: flex;
+  }
 }
 </style>
