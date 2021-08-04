@@ -34,7 +34,7 @@ export default {
     justify-content: center;
 
     &:hover {
-      background: rgba(64, 145, 227, 0.4);
+      background: $blue-muted;
     }
   }
 

@@ -90,7 +90,7 @@ export default {
     min-height: 30px;
     max-height: 130px;
     padding: 9px 0 10px 10px;
-    font-size: 16px;
+    font-size: 18px;
     resize: none;
     border: 0;
     outline: 0;
@@ -106,7 +106,7 @@ export default {
 
   &__placeholder {
     position: absolute;
-    font-size: 16px;
+    font-size: 18px;
     left: 10px;
     top: 7px;
     z-index: 1;

@@ -9,6 +9,11 @@ const routes = [
     path: '/',
     component: () => import('@/views/Home.vue')
   },
+  {
+    name: 'Auth',
+    path: '/auth',
+    component: () => import('@/views/Auth.vue')
+  }
 ]
 
 const router = new VueRouter({
