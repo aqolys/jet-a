@@ -85,7 +85,8 @@ export default {
 
   &__textarea {
     border-radius: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
     min-height: 30px;
     max-height: 130px;
     padding: 9px 0 10px 10px;
@@ -108,6 +109,7 @@ export default {
     font-size: 16px;
     left: 10px;
     top: 7px;
+    z-index: 1;
     color: $text-muted;
     pointer-events: none;
   }

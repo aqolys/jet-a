@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss">
-@import "@/scss/scrollbar";
+@import "@/scss/mixins";
 
 * {
   @include scrollbar;
@@ -24,5 +24,12 @@
 
 body {
   overflow-y: hidden;
+}
+
+input,
+button,
+textarea {
+  bottom: unset;
+  outline: unset;
 }
 </style>

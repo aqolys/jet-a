@@ -1,5 +1,9 @@
 <template>
-  <button class="button" :class="{ 'button-icon': icon, 'button-text': text }">
+  <button
+    class="button"
+    :class="{ 'button-icon': icon, 'button-text': text }"
+    @click="(e) => $emit('click', e)"
+  >
     <fa :icon="icon" v-if="icon" />
     {{ text }}
   </button>
@@ -28,6 +32,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &:hover {
+      background: rgba(64, 145, 227, 0.4);
+    }
   }
 
   &-text {
@@ -38,8 +46,13 @@ export default {
     font-size: 25px;
     height: 45px;
     width: 45px;
-    background: $blue;
     align-self: center;
+  }
+
+  &-header {
+    &.active {
+      background: $blue;
+    }
   }
 
   &-send {

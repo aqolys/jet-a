@@ -37,7 +37,7 @@ export default {
 
 .message {
   padding: 10px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(2px);
   align-self: flex-start;
   margin: 10px 25px 10px 25px;
@@ -71,7 +71,7 @@ export default {
     bottom: 0;
     width: 15px;
     height: 15px;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
     clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%);
   }

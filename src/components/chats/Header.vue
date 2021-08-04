@@ -10,18 +10,34 @@
       <div class="header-user__name">Danil Danilenko</div>
     </div>
     <div class="header-actions">
-      <Button icon="search" />
-      <Button icon="cog" />
+      <Button
+        icon="search"
+        @click="searchToggle"
+        class="button-header"
+        :class="{ active: searchVisibility }"
+      />
+      <Button icon="cog" class="button-header" />
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import Button from "@/components/Button.vue";
 
 export default {
   components: {
     Button,
+  },
+  computed: {
+    ...mapState({
+      searchVisibility: "searchVisibility",
+    }),
+  },
+  methods: {
+    searchToggle() {
+      this.$store.commit("SEARCH_TOGGLE", !this.searchVisibility);
+    },
   },
 };
 </script>

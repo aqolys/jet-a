@@ -5,7 +5,8 @@
         <ChatHeader />
       </div>
       <div class="chats-list__wrapper">
-        <div class="chats-list__container">
+        <ChatSearch v-show="searchVisibility" />
+        <div class="chats-list__container" v-show="!searchVisibility">
           <Chat v-for="chat in chatsData" :key="chat.id" :value="chat" />
         </div>
       </div>
@@ -29,6 +30,7 @@ import { mapState } from "vuex";
 
 import Chat from "@/components/chats/Chat.vue";
 import ChatHeader from "@/components/chats/Header.vue";
+import ChatSearch from "@/components/chats/Search.vue";
 import Dialogue from "@/components/dialogue/Dialogue.vue";
 import DialogueHeader from "@/components/dialogue/Header.vue";
 import DialogueInput from "@/components/dialogue/Input.vue";
@@ -38,6 +40,7 @@ export default {
   components: {
     Chat,
     ChatHeader,
+    ChatSearch,
     Dialogue,
     DialogueHeader,
     DialogueInput,
@@ -48,7 +51,19 @@ export default {
   computed: {
     ...mapState({
       activeChat: "activeChat",
+      searchVisibility: "searchVisibility",
     }),
+  },
+  mounted() {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        if (this.activeChat) {
+          this.$store.commit("SELECT_CHAT", null);
+        } else {
+          this.$store.commit("SEARCH_TOGGLE", false);
+        }
+      }
+    });
   },
 };
 </script>
@@ -62,16 +77,15 @@ export default {
 
   &-list {
     height: 100vh;
-    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(2px);
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: $header-height 1fr;
 
     &__header {
-      background: rgba(0, 0, 0, 0.6);
       display: flex;
       align-items: center;
+      backdrop-filter: blur(4px);
     }
 
     &__wrapper {
@@ -86,14 +100,12 @@ export default {
     display: flex;
     flex-direction: column;
     position: relative;
-    background: rgba(0, 0, 0, 0.2);
     min-width: $dialogue-width;
-    // backdrop-filter: blur(1px);
 
     &__header {
       height: $header-height;
-      background: rgba(0, 0, 0, 0.6);
       display: flex;
+      backdrop-filter: blur(4px);
       align-items: center;
     }
 

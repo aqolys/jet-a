@@ -4,8 +4,7 @@ export default [
     name: 'Rhys Hawkins',
     preview: 'Realy nice, but it doesnt workt if you have multiple divs or mutliple P s in the scrolling content :( ',
     at: Date.now(),
-    avatar:
-      'https://images.pexels.com/photos/1081685/pexels-photo-1081685.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200',
+    avatar: 'https://images.pexels.com/photos/1081685/pexels-photo-1081685.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200',
     unread: 16,
     online: true,
   },
