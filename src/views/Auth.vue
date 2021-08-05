@@ -29,7 +29,7 @@
         />
         <div class="auth__switch">
           {{ switchText }}
-          <span @click="switchMode">{{ siwtchTextTrigger }}</span>
+          <span @click="switchMode">{{ switchTextTrigger }}</span>
         </div>
         <Button
           :text="buttonText"
@@ -46,21 +46,21 @@ import Input from "@/components/Input.vue";
 import Button from "@/components/Button.vue";
 
 export default {
+  components: {
+    Input,
+    Button,
+  },
   data() {
     return {
       mode: "auth",
       title: "Вход",
-      switchText: "Нету аккаунта Jet-a?",
-      siwtchTextTrigger: "Создайте его!",
+      switchText: "Нет аккаунта Jet-a?",
+      switchTextTrigger: "Создайте его!",
       buttonText: "Войти",
       userName: "",
       userPassword: "",
       userPasswordRepeat: "",
     };
-  },
-  components: {
-    Input,
-    Button,
   },
   methods: {
     switchMode() {
@@ -68,7 +68,7 @@ export default {
         case "auth":
           this.title = "Регистрация";
           this.switchText = "Уже есть аккаунт Jet-a?";
-          this.siwtchTextTrigger = "Войдите!";
+          this.switchTextTrigger = "Войдите!";
           this.buttonText = "Зарегистрироваться";
           this.mode = "reg";
           break;
@@ -76,7 +76,7 @@ export default {
         case "reg":
           this.title = "Вход";
           this.switchText = "Нету аккаунта Jet-a?";
-          this.siwtchTextTrigger = "Создайте его!";
+          this.switchTextTrigger = "Создайте его!";
           this.buttonText = "Войти";
           this.mode = "auth";
           break;
