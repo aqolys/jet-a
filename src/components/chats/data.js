@@ -18,7 +18,7 @@ export default [
     unread: 2,
   },
   {
-    id: 'asd12dasd',
+    id: 0,
     name: 'Joaquin Marquez',
     preview: 'how do I make it repeat without any white spaces between the last span and repeated first span (No white spaces after last span?) ',
     at: Date.now(),

@@ -9,7 +9,12 @@
       <span class="chat__status" v-show="value.online"></span>
     </div>
     <div class="chat__name">{{ value.name }}</div>
-    <div class="chat__preview">{{ value.preview }}</div>
+    <div
+      class="chat__preview"
+      :class="{ 'chat__preview--im': lastMessageAuthor }"
+    >
+      {{ value.preview }}
+    </div>
     <div class="chat__date">{{ parseDate(value.at) }}</div>
   </div>
 </template>
@@ -20,6 +25,11 @@ import { mapState } from "vuex";
 
 export default {
   props: ["value"],
+  data() {
+    return {
+      lastMessageAuthor: this.value.id === 0 /* user.id */ ? true : false,
+    };
+  },
   computed: {
     ...mapState({
       activeChat: "activeChat",
@@ -95,6 +105,14 @@ export default {
     text-overflow: ellipsis;
     white-space: nowrap;
     color: $text-muted;
+
+    &--im::before {
+      content: "Вы:";
+      background: $blue-muted !important;
+      color: white;
+      padding: 0 5px 0 5px;
+      border-radius: 5px;
+    }
   }
 
   &__date {
