@@ -2,7 +2,7 @@
   <div class="auth">
     <div class="auth__container">
       <span class="auth__title">
-        {{ title }}
+        {{ mode.title }}
       </span>
       <div class="auth__form">
         <Input
@@ -24,17 +24,17 @@
           placeholder="Подтвердите пароль"
           label=" "
           maxlength="30"
-          v-if="mode === 'reg'"
-          v-model="userPasswordRepeat"
+          v-if="reg"
+          v-model="userRPassword"
         />
         <div class="auth__switch">
-          {{ switchText }}
-          <span @click="switchMode">{{ switchTextTrigger }}</span>
+          {{ mode.switchText }}
+          <span @click="switchMode">{{ mode.switchTextTrigger }}</span>
         </div>
         <Button
-          :text="buttonText"
+          :text="mode.buttonText"
           class="button--stretched"
-          @click="mode === 'auth' ? login() : register()"
+          @click="handleSubmit"
         />
       </div>
     </div>
@@ -50,54 +50,51 @@ export default {
     Input,
     Button,
   },
-  data() {
-    return {
-      mode: "auth",
-      title: "Вход",
-      switchText: "Нет аккаунта Jet-a?",
-      switchTextTrigger: "Создайте его!",
-      buttonText: "Войти",
-      userName: "",
-      userPassword: "",
-      userPasswordRepeat: "",
-    };
+  data: () => ({
+    reg: false,
+
+    userName: "",
+    userPassword: "",
+    userRPassword: "",
+
+    modes: [
+      {
+        title: "Регистрация",
+        switchText: "Уже есть аккаунт Jet-a?",
+        switchTextTrigger: "Войдите!",
+        buttonText: "Зарегистрироваться",
+      },
+      {
+        title: "Вход",
+        switchText: "Нет аккаунта Jet-a?",
+        switchTextTrigger: "Создайте его!",
+        buttonText: "Войти",
+      },
+    ],
+  }),
+  computed: {
+    mode() {
+      return this.modes[+!this.reg];
+    },
   },
   methods: {
-    switchMode() {
-      switch (this.mode) {
-        case "auth":
-          this.title = "Регистрация";
-          this.switchText = "Уже есть аккаунт Jet-a?";
-          this.switchTextTrigger = "Войдите!";
-          this.buttonText = "Зарегистрироваться";
-          this.mode = "reg";
-          break;
-
-        case "reg":
-          this.title = "Вход";
-          this.switchText = "Нету аккаунта Jet-a?";
-          this.switchTextTrigger = "Создайте его!";
-          this.buttonText = "Войти";
-          this.mode = "auth";
-          break;
+    handleSubmit() {
+      if (this.reg) {
+        this.register();
+      } else {
+        this.login();
       }
     },
+    switchMode() {
+      this.reg = !this.reg;
+    },
     login() {
-      const nameInput = document.getElementById("name");
-      const passwordInput = document.getElementById("password");
-      const name = nameInput.value;
-      const password = passwordInput.value;
-
-      console.log(this.input);
-
-      // if (name && password) {
-      //   console.log("success");
-      // } else {
-      //   this.$root.$emit("inputError");
-      // }
+      const { userName, userPassword } = this;
+      console.log({ userName, userPassword });
     },
     register() {
-      let { name, password, passwordConfirm } = this.$refs;
+      const { userName, userPassword, userRPassword } = this;
+      console.log({ userName, userPassword, userRPassword });
     },
   },
 };

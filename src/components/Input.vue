@@ -1,11 +1,11 @@
 <template>
   <div class="input-group">
-    <label class="input-label" :for="id" v-if="label">{{ label }}</label>
+    <label class="input-label" v-if="label">{{ label }}</label>
     <input
       :type="type"
       :placeholder="placeholder"
       :maxlength="maxlength"
-      v-on:inputError="inputError"
+      @inputError="inputError"
       @input="$emit('input', $event.target.value)"
     />
   </div>
