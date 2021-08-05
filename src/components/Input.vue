@@ -6,6 +6,7 @@
       :placeholder="placeholder"
       :id="id"
       :maxlength="maxlength"
+      v-on:inputError="inputError"
     />
   </div>
 </template>
@@ -13,6 +14,19 @@
 <script>
 export default {
   props: ["type", "placeholder", "label", "id", "maxlength"],
+  data: () => ({
+    error: false,
+  }),
+  methods: {
+    inputError() {
+      console.log("input-error-method");
+    },
+  },
+  mounted() {
+    this.$root.$on("inputError", () => {
+      console.log("input-error-method");
+    });
+  },
 };
 </script>
 
@@ -47,6 +61,10 @@ input {
   font-weight: 500;
   border-radius: 10px;
   border: 2px solid $blue;
+
+  &.error {
+    border: 2px solid red;
+  }
 
   &:focus {
     box-shadow: 0 0 0 2px $blue, 0 0 0 6px $blue-muted;

@@ -19,10 +19,23 @@
           id="password"
           maxlength="30"
         />
-        <div class="auth__toggle">
-          Нету аккаунта Jet-a? <span @click="switchMode">Создайте его!</span>
+        <Input
+          type="password"
+          placeholder="Подтвердите пароль"
+          label=" "
+          id="password-confirm"
+          maxlength="30"
+          v-if="mode === 'reg'"
+        />
+        <div class="auth__switch">
+          {{ switchText }}
+          <span @click="switchMode">{{ siwtchTextTrigger }}</span>
         </div>
-        <Button text="Войти" class="button--stretched" />
+        <Button
+          :text="buttonText"
+          class="button--stretched"
+          @click="mode === 'auth' ? login() : register()"
+        />
       </div>
     </div>
   </div>
@@ -33,29 +46,55 @@ import Input from "@/components/Input.vue";
 import Button from "@/components/Button.vue";
 
 export default {
-  data: () => ({
-    mode: "auth",
-    title: "Вход",
-  }),
+  data() {
+    return {
+      mode: "auth",
+      title: "Вход",
+      switchText: "Нету аккаунта Jet-a?",
+      siwtchTextTrigger: "Создайте его!",
+      buttonText: "Войти",
+    };
+  },
   components: {
     Input,
     Button,
   },
   methods: {
     switchMode() {
-      let { mode } = this;
-
-      switch (mode) {
+      switch (this.mode) {
         case "auth":
           this.title = "Регистрация";
+          this.switchText = "Уже есть аккаунт Jet-a?";
+          this.siwtchTextTrigger = "Войдите!";
+          this.buttonText = "Зарегистрироваться";
           this.mode = "reg";
           break;
 
         case "reg":
           this.title = "Вход";
+          this.switchText = "Нету аккаунта Jet-a?";
+          this.siwtchTextTrigger = "Создайте его!";
+          this.buttonText = "Войти";
           this.mode = "auth";
           break;
       }
+    },
+    login() {
+      const nameInput = document.getElementById("name");
+      const passwordInput = document.getElementById("password");
+      const name = nameInput.value;
+      const password = passwordInput.value;
+
+      console.log(this.input);
+
+      // if (name && password) {
+      //   console.log("success");
+      // } else {
+      //   this.$root.$emit("inputError");
+      // }
+    },
+    register() {
+      let { name, password, passwordConfirm } = this.$refs;
     },
   },
 };
@@ -93,7 +132,7 @@ export default {
     width: 100%;
   }
 
-  &__toggle {
+  &__switch {
     font-size: 16px;
     margin-bottom: 15px;
     user-select: none;
