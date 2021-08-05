@@ -24,11 +24,12 @@ export default {
   border: unset;
   outline: unset;
   color: white;
-  border-radius: 100%;
+  user-select: none;
 
   &-icon {
     padding: 10px;
     font-size: 20px;
+    border-radius: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,6 +41,9 @@ export default {
 
   &-text {
     background: $blue;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px 25px;
   }
 
   &-dialogue {
@@ -59,6 +63,10 @@ export default {
     svg {
       margin-right: 4px;
     }
+  }
+
+  &--stretched {
+    width: 100%;
   }
 }
 </style>

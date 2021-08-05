@@ -2,10 +2,27 @@
   <div class="auth">
     <div class="auth__container">
       <span class="auth__title">
-        {{ mode === "auth" ? "Вход" : "Регистрация" }}
+        {{ title }}
       </span>
       <div class="auth__form">
-        <Input type="text" placeholder="Введите свое имя" label="Имя: " />
+        <Input
+          type="text"
+          placeholder="Введите свое имя"
+          label="Имя:"
+          id="name"
+          maxlength="15"
+        />
+        <Input
+          type="password"
+          placeholder="Введите пароль"
+          label="Пароль:"
+          id="password"
+          maxlength="30"
+        />
+        <div class="auth__toggle">
+          Нету аккаунта Jet-a? <span @click="switchMode">Создайте его!</span>
+        </div>
+        <Button text="Войти" class="button--stretched" />
       </div>
     </div>
   </div>
@@ -13,18 +30,40 @@
 
 <script>
 import Input from "@/components/Input.vue";
+import Button from "@/components/Button.vue";
 
 export default {
   data: () => ({
     mode: "auth",
+    title: "Вход",
   }),
   components: {
     Input,
+    Button,
+  },
+  methods: {
+    switchMode() {
+      let { mode } = this;
+
+      switch (mode) {
+        case "auth":
+          this.title = "Регистрация";
+          this.mode = "reg";
+          break;
+
+        case "reg":
+          this.title = "Вход";
+          this.mode = "auth";
+          break;
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import "@/scss/colors.scss";
+
 .auth {
   width: 100vw;
   height: 100vh;
@@ -52,6 +91,20 @@ export default {
 
   &__form {
     width: 100%;
+  }
+
+  &__toggle {
+    font-size: 16px;
+    margin-bottom: 15px;
+    user-select: none;
+
+    span {
+      user-select: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: $blue;
+      text-decoration: underline;
+    }
   }
 }
 </style>

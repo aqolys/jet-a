@@ -1,18 +1,18 @@
 <template>
   <div class="input-group">
-    <label class="input-label" v-if="label">{{ label }}</label>
-    <input :type="type" :placeholder="placeholder" />
+    <label class="input-label" :for="id" v-if="label">{{ label }}</label>
+    <input
+      :type="type"
+      :placeholder="placeholder"
+      :id="id"
+      :maxlength="maxlength"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  props: ["type", "placeholder", "label"],
-  computed: {
-    maxLenght() {
-      return this.maxLenght ? this.maxLenght : 40;
-    },
-  },
+  props: ["type", "placeholder", "label", "id", "maxlength"],
 };
 </script>
 
@@ -22,9 +22,11 @@ export default {
 .input {
   &-group {
     display: grid;
-    grid-template-columns: 50px 1fr;
+    grid-template-columns: 70px 1fr;
     column-gap: 1rem;
     width: 100%;
+    align-items: center;
+    margin-bottom: 10px;
   }
 
   &-label {

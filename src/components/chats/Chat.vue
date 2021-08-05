@@ -64,6 +64,7 @@ export default {
   row-gap: 0.4rem;
   padding: 0 7px 0 7px;
   height: $chat-height;
+  user-select: none;
 
   &:hover {
     background: rgba(64, 145, 227, 0.4);
