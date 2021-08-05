@@ -7,22 +7,27 @@
       <div class="auth__form">
         <Input
           type="text"
+          name="user-name"
           placeholder="Введите свое имя"
+          regex=""
           label="Имя:"
+          autofocus
           maxlength="15"
           v-model="userName"
         />
         <Input
           type="password"
+          name="user-password"
           placeholder="Введите пароль"
           label="Пароль:"
+          regex="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
           maxlength="30"
           v-model="userPassword"
         />
         <Input
           type="password"
+          name="user-password-repeat"
           placeholder="Подтвердите пароль"
-          label=" "
           maxlength="30"
           v-if="reg"
           v-model="userRPassword"
@@ -81,14 +86,16 @@ export default {
   },
   methods: {
     handleSubmit() {
-      if (this.reg) {
-        this.register();
-      } else {
-        this.login();
-      }
+      this.reg ? this.register() : this.login();
     },
     login() {
       const { userName, userPassword } = this;
+
+      this.$root.$emit("input-error", {
+        name: "user-name",
+        message: "нейм занят",
+      });
+
       console.log({ userName, userPassword });
     },
     register() {

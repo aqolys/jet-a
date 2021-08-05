@@ -1,31 +1,38 @@
 <template>
   <div class="input-group">
-    <label class="input-label" v-if="label">{{ label }}</label>
+    <label class="input-label" :for="name" v-if="label">{{ label }}</label>
     <input
+      :id="name"
       :type="type"
       :placeholder="placeholder"
+      :autofocus="focus"
       :maxlength="maxlength"
-      @inputError="inputError"
+      @inputError="handleError"
       @input="$emit('input', $event.target.value)"
     />
+    <label v-if="error">{{ error }}</label>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["type", "placeholder", "label", "maxlength"],
+  props: ["type", "placeholder", "label", "maxlength", "focus", "name"],
   data: () => ({
-    error: false,
+    error: "",
   }),
   methods: {
-    inputError() {
-      console.log("input-error-method");
+    handleError({ name, message }) {
+      if (this.name == name) {
+        const t = this;
+        this.error = message;
+        setTimeout(function() {
+          t.error = "";
+        }, 2000);
+      }
     },
   },
   mounted() {
-    this.$root.$on("inputError", () => {
-      console.log("input-error-method");
-    });
+    this.$root.$on("input-error", this.handleError);
   },
 };
 </script>
