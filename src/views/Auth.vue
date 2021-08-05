@@ -29,7 +29,9 @@
         />
         <div class="auth__switch">
           {{ mode.switchText }}
-          <span @click="switchMode">{{ mode.switchTextTrigger }}</span>
+          <span @click="this.reg = !this.reg">{{
+            mode.switchTextTrigger
+          }}</span>
         </div>
         <Button
           :text="mode.buttonText"
@@ -84,9 +86,6 @@ export default {
       } else {
         this.login();
       }
-    },
-    switchMode() {
-      this.reg = !this.reg;
     },
     login() {
       const { userName, userPassword } = this;
