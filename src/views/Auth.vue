@@ -9,23 +9,23 @@
           type="text"
           placeholder="Введите свое имя"
           label="Имя:"
-          id="name"
           maxlength="15"
+          v-model="userName"
         />
         <Input
           type="password"
           placeholder="Введите пароль"
           label="Пароль:"
-          id="password"
           maxlength="30"
+          v-model="userPassword"
         />
         <Input
           type="password"
           placeholder="Подтвердите пароль"
           label=" "
-          id="password-confirm"
           maxlength="30"
           v-if="mode === 'reg'"
+          v-model="userPasswordRepeat"
         />
         <div class="auth__switch">
           {{ switchText }}
@@ -53,6 +53,9 @@ export default {
       switchText: "Нету аккаунта Jet-a?",
       siwtchTextTrigger: "Создайте его!",
       buttonText: "Войти",
+      userName: "",
+      userPassword: "",
+      userPasswordRepeat: "",
     };
   },
   components: {

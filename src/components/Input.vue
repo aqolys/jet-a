@@ -4,16 +4,16 @@
     <input
       :type="type"
       :placeholder="placeholder"
-      :id="id"
       :maxlength="maxlength"
       v-on:inputError="inputError"
+      @input="$emit('input', $event.target.value)"
     />
   </div>
 </template>
 
 <script>
 export default {
-  props: ["type", "placeholder", "label", "id", "maxlength"],
+  props: ["type", "placeholder", "label", "maxlength"],
   data: () => ({
     error: false,
   }),
