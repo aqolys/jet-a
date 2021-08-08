@@ -25,6 +25,7 @@ export default {
   outline: unset;
   color: white;
   user-select: none;
+  transition: box-shadow 0.1s;
 
   &-icon {
     padding: 10px;
@@ -67,6 +68,10 @@ export default {
 
   &--stretched {
     width: 100%;
+  }
+
+  &:active {
+    box-shadow: 0 0 0 6px $blue-muted;
   }
 }
 </style>

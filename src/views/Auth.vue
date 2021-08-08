@@ -1,6 +1,9 @@
 <template>
   <div class="auth">
     <div class="auth__container">
+      <div class="auth__loader" v-show="loading">
+        <Loader />
+      </div>
       <span class="auth__title">
         {{ mode.title }}
       </span>
@@ -20,7 +23,6 @@
           name="user-password"
           placeholder="Введите пароль"
           label="Пароль:"
-          regex="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
           maxlength="30"
           v-model="userPassword"
         />
@@ -28,21 +30,16 @@
           type="password"
           name="user-password-repeat"
           placeholder="Подтвердите пароль"
+          label=" "
           maxlength="30"
           v-if="reg"
           v-model="userRPassword"
         />
         <div class="auth__switch">
           {{ mode.switchText }}
-          <span @click="this.reg = !this.reg">{{
-            mode.switchTextTrigger
-          }}</span>
+          <span @click="reg = !reg">{{ mode.switchTextTrigger }}</span>
         </div>
-        <Button
-          :text="mode.buttonText"
-          class="button--stretched"
-          @click="handleSubmit"
-        />
+        <Button :text="mode.buttonText" class="button--stretched" @click="handleSubmit" />
       </div>
     </div>
   </div>
@@ -51,14 +48,17 @@
 <script>
 import Input from "@/components/Input.vue";
 import Button from "@/components/Button.vue";
+import Loader from "@/components/Loader.vue";
 
 export default {
   components: {
     Input,
     Button,
+    Loader,
   },
   data: () => ({
     reg: false,
+    loading: false,
 
     userName: "",
     userPassword: "",
@@ -78,6 +78,20 @@ export default {
         buttonText: "Войти",
       },
     ],
+
+    errors: {
+      emptyField: "Заполните поле",
+      usernameTaken: "Имя пользователя занято",
+      passwordIncorrect: "Неверный пароль",
+      passwordRIncorrect: "Пароли не совпадают",
+      usernameRegexError: "Имя должно состоять только из латинский букв",
+      passwordRegexError: "Пароль должен содержать в себе заглавную букву и цифру",
+    },
+
+    regex: {
+      name: /^[a-zA-Z]+$/,
+      password: /^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/,
+    },
   }),
   computed: {
     mode() {
@@ -89,18 +103,66 @@ export default {
       this.reg ? this.register() : this.login();
     },
     login() {
-      const { userName, userPassword } = this;
+      const { userName, userPassword, errors, validate } = this;
 
-      this.$root.$emit("input-error", {
-        name: "user-name",
-        message: "нейм занят",
-      });
+      if (!validate()) {
+        return false;
+      }
 
-      console.log({ userName, userPassword });
+      return true;
     },
     register() {
-      const { userName, userPassword, userRPassword } = this;
-      console.log({ userName, userPassword, userRPassword });
+      const { userName, userPassword, userRPassword, errors, validate } = this;
+
+      if (!validate()) {
+        return false;
+      }
+
+      return true;
+    },
+    validate() {
+      const { userName, userPassword, userRPassword, errors, regex, inputError } = this;
+
+      if (!regex.name.test(userName)) {
+        inputError("user-name", errors.usernameRegexError);
+
+        return false;
+      }
+
+      if (!regex.password.test(userPassword)) {
+        inputError("user-password", errors.passwordRegexError);
+
+        return false;
+      }
+
+      if (this.reg) {
+        if (userName && userPassword && userRPassword) {
+          if (userPassword !== userRPassword) {
+            inputError("user-password-repeat", errors.passwordRIncorrect);
+          } else {
+            return true;
+          }
+        } else {
+          !userName && inputError("user-name", errors.emptyField);
+          !userPassword && inputError("user-password", errors.emptyField);
+          !userRPassword && inputError("user-password-repeat", errors.emptyField);
+        }
+      } else {
+        if (userName && userPassword) {
+          return true;
+        } else {
+          !userName && inputError("user-name", errors.emptyField);
+          !userPassword && inputError("user-password", errors.emptyField);
+        }
+      }
+
+      return true;
+    },
+    inputError(name, message) {
+      this.$root.$emit("input-error", {
+        name: name,
+        message: message,
+      });
     },
   },
 };
@@ -125,6 +187,17 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 20px 40px 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 0 6px $blue-muted;
+    position: relative;
+  }
+
+  &__loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2;
     border-radius: 10px;
   }
 

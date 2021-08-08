@@ -7,10 +7,11 @@
       :placeholder="placeholder"
       :autofocus="focus"
       :maxlength="maxlength"
+      :class="{ error: error }"
       @inputError="handleError"
-      @input="$emit('input', $event.target.value)"
+      @input="onInput"
     />
-    <label v-if="error">{{ error }}</label>
+    <label class="input-error" v-if="error">{{ error }}</label>
   </div>
 </template>
 
@@ -23,12 +24,12 @@ export default {
   methods: {
     handleError({ name, message }) {
       if (this.name == name) {
-        const t = this;
         this.error = message;
-        setTimeout(function() {
-          t.error = "";
-        }, 2000);
       }
+    },
+    onInput(e) {
+      this.$emit("input", e.target.value);
+      this.error = "";
     },
   },
   mounted() {
@@ -48,11 +49,17 @@ export default {
     width: 100%;
     align-items: center;
     margin-bottom: 10px;
+    position: relative;
   }
 
   &-label {
     font-weight: bold;
     font-size: 18px;
+  }
+
+  &-error {
+    color: $red;
+    grid-column: 2/3;
   }
 }
 
@@ -70,11 +77,12 @@ input {
   border: 2px solid $blue;
 
   &.error {
-    border: 2px solid red;
+    border: 2px solid $red;
   }
 
   &:focus {
     box-shadow: 0 0 0 2px $blue, 0 0 0 6px $blue-muted;
+    border: 2px solid $blue;
   }
 }
 </style>
