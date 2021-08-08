@@ -8,8 +8,10 @@
       :autofocus="focus"
       :maxlength="maxlength"
       :class="{ error: error }"
+      ref="input"
       @inputError="handleError"
       @input="onInput"
+      @keydown.enter="onEnter"
     />
     <label class="input-error" v-if="error">{{ error }}</label>
   </div>
@@ -30,6 +32,10 @@ export default {
     onInput(e) {
       this.$emit("input", e.target.value);
       this.error = "";
+    },
+    onEnter() {
+      this.$root.$emit("on-enter");
+      this.$refs.input.blur();
     },
   },
   mounted() {

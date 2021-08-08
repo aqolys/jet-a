@@ -85,7 +85,7 @@ export default {
       passwordIncorrect: "Неверный пароль",
       passwordRIncorrect: "Пароли не совпадают",
       usernameRegexError: "Имя должно состоять только из латинский букв",
-      passwordRegexError: "Пароль должен содержать в себе заглавную букву и цифру",
+      passwordRegexError: "Пароль должен состоять из заглавной, прописной буквы и цифры, и иметь длину 6 символов",
     },
 
     regex: {
@@ -105,58 +105,77 @@ export default {
     login() {
       const { userName, userPassword, errors, validate } = this;
 
-      if (!validate()) {
+      if (validate()) {
         return false;
       }
 
-      return true;
+      this.loading = true;
     },
     register() {
-      const { userName, userPassword, userRPassword, errors, validate } = this;
+      const { userName, userPassword, errors, validate } = this;
 
-      if (!validate()) {
+      if (validate()) {
         return false;
       }
 
-      return true;
+      this.loading = true;
     },
-    validate() {
-      const { userName, userPassword, userRPassword, errors, regex, inputError } = this;
+    regexValidate() {
+      const { userName, userPassword, errors, regex, inputError } = this;
+
+      let hasError = false;
 
       if (!regex.name.test(userName)) {
         inputError("user-name", errors.usernameRegexError);
 
-        return false;
+        hasError = true;
       }
 
       if (!regex.password.test(userPassword)) {
         inputError("user-password", errors.passwordRegexError);
 
-        return false;
+        hasError = true;
       }
+
+      return hasError;
+    },
+    validate() {
+      const { userName, userPassword, userRPassword, errors, inputError, regexValidate } = this;
+
+      let hasError = false;
 
       if (this.reg) {
         if (userName && userPassword && userRPassword) {
           if (userPassword !== userRPassword) {
             inputError("user-password-repeat", errors.passwordRIncorrect);
+
+            hasError = true;
           } else {
-            return true;
+            if (regexValidate()) {
+              hasError = true;
+            } else {
+              hasError = false;
+            }
           }
         } else {
           !userName && inputError("user-name", errors.emptyField);
           !userPassword && inputError("user-password", errors.emptyField);
           !userRPassword && inputError("user-password-repeat", errors.emptyField);
+
+          hasError = true;
         }
       } else {
         if (userName && userPassword) {
-          return true;
+          hasError = false;
         } else {
           !userName && inputError("user-name", errors.emptyField);
           !userPassword && inputError("user-password", errors.emptyField);
+
+          hasError = true;
         }
       }
 
-      return true;
+      return hasError;
     },
     inputError(name, message) {
       this.$root.$emit("input-error", {
@@ -164,6 +183,9 @@ export default {
         message: message,
       });
     },
+  },
+  mounted() {
+    this.$root.$on("on-enter", this.handleSubmit);
   },
 };
 </script>
