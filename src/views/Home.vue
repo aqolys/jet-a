@@ -1,6 +1,6 @@
 <template>
   <div class="chats">
-    <div class="chats-list">
+    <div class="chats-list" v-show="isMobile ? !activeChat : true">
       <div class="chats-list__header">
         <ChatHeader />
       </div>
@@ -52,6 +52,7 @@ export default {
     ...mapState({
       activeChat: "activeChat",
       searchVisibility: "searchVisibility",
+      isMobile: "isMobile",
     }),
   },
   mounted() {
@@ -70,6 +71,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/scss/sizes.scss";
+@import "@/scss/media-query.scss";
 
 .chats {
   display: grid;
@@ -91,9 +93,6 @@ export default {
     &__wrapper {
       overflow-y: auto;
     }
-
-    &__container {
-    }
   }
 
   &-dialogue {
@@ -112,6 +111,19 @@ export default {
     &__container {
       flex: 1;
     }
+  }
+
+  @include tablet {
+    grid-template-columns: 18rem 1fr;
+
+    &-dialogue {
+      min-width: 340px;
+    }
+  }
+
+  @include mobile-lg {
+    grid-template-columns: 1fr;
+    height: 100%;
   }
 }
 </style>

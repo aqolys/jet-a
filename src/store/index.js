@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     activeChat: null,
     searchVisibility: false,
-    drafts: {}
+    drafts: {},
+    isMobile: false
   },
 
   mutations: {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     UPDATE_DRAFT(state, { chat, draft }) {
       state.drafts[chat] = draft
+    },
+    SET_IS_MOBILE(state, payload) {
+      state.isMobile = payload
     }
   },
 

@@ -1,5 +1,8 @@
 <template>
   <div class="header">
+    <div class="header-back">
+      <Button icon="sign-out-alt" @click="closeDialogue" />
+    </div>
     <div class="header-user">
       <div class="header-user__avatar">
         <img :src="user.avatar" alt="" />
@@ -12,19 +15,31 @@
 </template>
 
 <script>
+import Button from "@/components/Button.vue";
+
 export default {
   props: ["user"],
+  components: {
+    Button,
+  },
+  methods: {
+    closeDialogue() {
+      this.$store.commit("SELECT_CHAT", null);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/scss/colors.scss";
+@import "@/scss/media-query.scss";
 
 .header {
   padding: 0 7px 0 7px;
-  display: flex;
-  justify-content: space-between;
   width: 100%;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  column-gap: 10px;
 
   &-user {
     display: grid;
@@ -59,6 +74,13 @@ export default {
       bottom: 0;
       right: 0;
     }
+  }
+
+  &-back {
+    transform: rotate(180deg);
+  }
+
+  @include mobile-lg {
   }
 }
 </style>
