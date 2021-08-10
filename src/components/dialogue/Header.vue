@@ -38,7 +38,6 @@ export default {
   padding: 0 7px 0 7px;
   width: 100%;
   display: grid;
-  grid-template-columns: 40px 1fr;
   column-gap: 10px;
 
   &-user {
@@ -77,10 +76,16 @@ export default {
   }
 
   &-back {
+    display: none;
     transform: rotate(180deg);
   }
 
   @include mobile-lg {
+    grid-template-columns: 40px 1fr;
+
+    &-back {
+      display: flex;
+    }
   }
 }
 </style>
