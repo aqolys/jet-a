@@ -12,6 +12,9 @@
       </div>
     </div>
     <div class="chats-dialogue" v-if="activeChat">
+      <div class="chats-dialogue__modal" v-show="modal" ref="modalBackground" @click="closeModal">
+        <Modal />
+      </div>
       <div class="chats-dialogue__header">
         <DialogueHeader :user="activeChat" />
       </div>
@@ -34,6 +37,7 @@ import ChatSearch from "@/components/chats/Search.vue";
 import Dialogue from "@/components/dialogue/Dialogue.vue";
 import DialogueHeader from "@/components/dialogue/Header.vue";
 import DialogueInput from "@/components/dialogue/Input.vue";
+import Modal from "@/components/Modal.vue";
 import chatsData from "@/components/chats/data.js";
 
 export default {
@@ -44,9 +48,10 @@ export default {
     Dialogue,
     DialogueHeader,
     DialogueInput,
+    Modal
   },
   data: () => {
-    return { chatsData };
+    return { chatsData, modal: false };
   },
   computed: {
     ...mapState({
@@ -54,6 +59,18 @@ export default {
       searchVisibility: "searchVisibility",
       isMobile: "isMobile",
     }),
+  },
+  methods: {
+    openModal() {
+      if(!this.modal) {
+        this.modal = true
+      } 
+    },
+    closeModal(e) {
+      if(this.modal && e.target === this.$refs.modalBackground) {
+        this.modal = false
+      }
+    }
   },
   mounted() {
     document.addEventListener("keydown", (e) => {
@@ -65,6 +82,8 @@ export default {
         }
       }
     });
+
+    this.$root.$on('modal-open', this.openModal)
   },
 };
 </script>
@@ -110,6 +129,17 @@ export default {
 
     &__container {
       flex: 1;
+    }
+
+    &__modal {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      backdrop-filter: blur(2px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="input">
     <div class="input__button input__media">
-      <Button icon="plus" class="button-dialogue" />
+      <Button icon="plus" class="button-dialogue" @click="onMedia"/>
     </div>
     <div class="input__textarea-container">
       <p class="input__placeholder" v-show="placeholderVisibility">
@@ -67,6 +67,9 @@ export default {
         e.preventDefault();
       }
     },
+    onMedia() {
+      this.$root.$emit('modal-open')
+    }
   },
   mounted() {},
 };
