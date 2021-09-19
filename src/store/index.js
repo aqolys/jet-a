@@ -8,7 +8,8 @@ export default new Vuex.Store({
     activeChat: null,
     searchVisibility: false,
     drafts: {},
-    isMobile: false
+    isMobile: false, 
+    user: null
   },
 
   mutations: {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     SET_IS_MOBILE(state, payload) {
       state.isMobile = payload
+    },
+    SET_USER(state, payload) {
+      state.user = payload
     }
   },
 
